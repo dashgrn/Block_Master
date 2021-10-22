@@ -1,15 +1,14 @@
-let apiKey= 'api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6'
+const apiKey= 'api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6'
 const API_URL = `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&page=1`
 const IMG_PATH = `https://image.tmdb.org/t/p/w1280`
 const SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&query='
 const POPULAR = `https://api.themoviedb.org/3/movie/popular?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&language=en-US&page=1`
 
-let movieCard = document.getElementById('movieCard-template').content
+const movieCard = document.getElementById('movieCard-template').content
 const fragment = document.createDocumentFragment()
 const main = document.getElementById('main')
-const movieSearchInput = document.getElementById('movieSearchInput')
 const btnSearch = document.getElementById('btnSearch')
-let searchQuery = movieSearchInput.value
+
 
 //pupular movies for homepage
 const getPopular = async () => {
@@ -20,8 +19,8 @@ const getPopular = async () => {
 }
 
 //get search query
-const searchMovie = async () => {
-    searchRes = await fetch(`${SEARCH_URL}${searchQuery}`)
+const searchMovie = async (query) => {
+    searchRes = await fetch(`${SEARCH_URL}${query}`)
     let searchData = await searchRes.json()
     let {results} = searchData
     return results
@@ -59,8 +58,19 @@ document.addEventListener('DOMContentLoaded', showPopular)
 
 
 btnSearch.addEventListener('click', async () => {
-    let data = await searchMovie()
-    data.
+    let searchQuery = document.getElementById('movieSearchInput').value
+    let data = await searchMovie(searchQuery)
+    data.forEach(movie => {
+        let {title, overview, poster_path, vote_average} = movie
+        movieCard.getElementById('movieTitle').textContent = title
+        movieCard.getElementById('thumbnail').setAttribute('src', `${IMG_PATH}${poster_path}`)
+        movieCard.getElementById('overviewP').textContent= overview
+        movieCard.querySelector('span').textContent = vote_average
+        let cardClone = movieCard.cloneNode(true)
+        fragment.appendChild(cardClone)
+    })
+    main.innerHTML = ''
+    main.appendChild(fragment)
     console.log(data)
 })
 
