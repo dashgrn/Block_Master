@@ -1,23 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Block Master</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://kit.fontawesome.com/e8172de369.js" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Master</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://kit.fontawesome.com/e8172de369.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    
-    <div class="control has-icons-right">
-        <input id="movieSearchInput" class="input" type="search" placeholder="Movie Search">
-        <span class="icon is-small is-right">
-            <i class="fa fa-search" aria-hidden="true"></i>
-        </span>
+
+  <nav class="navbar has-background-dark" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://bulma.io">
+        <img src="./img/logo-blockBuster.png" width="50" height="28">
+      </a>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
     </div>
 
-    <script src="./scripts/app.js"></script>
+    <div id="navbarItems" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item has-text-white">
+          Todas
+        </a>
+        <a class="navbar-item has-text-white">
+          Más valoradas
+        </a>
+
+        <a class="navbar-item has-text-white">
+          Menos valoradas
+        </a>
+
+
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="control has-icons-right">
+            <input id="movieSearchInput" class="input" type="search" placeholder="Busca tu peli favorita">
+            <span class="icon is-small is-right">
+              <button id="btnSearch" class="fa fa-search" aria-hidden="true"></button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div id="main">
+    <!-- main content goes here -->
+  </div>
+
+  <template id="movieCard-template">
+    <div class="movie-card">
+      <img id="thumbnail" src="https://image.tmdb.org/t/p/w1280/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg" alt="">
+      <div class="movie-info">
+        <h3 id="movieTitle"></h3>
+        <span class="orange"></span>
+      </div>
+      <div class="overview">
+        <h3>overview</h3>
+        <p id="overviewP"></p>
+      </div>
+    </div>
+  </template>
+
+
+
+  <!-- <script src="./scripts/config.js"></script> -->
+  <script src="./scripts/app.js"></script>
 </body>
+
 </html>
