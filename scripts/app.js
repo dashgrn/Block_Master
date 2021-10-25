@@ -216,6 +216,8 @@ const showPopularScroll = async () => {
     main.appendChild(fragment)
     console.log(data)
 }
+
+// event listener for SCROLL
 window.addEventListener('scroll', () => {
     
     if (window.scrollY + window.innerHeight >= document.body.offsetHeight - 10) {
