@@ -13,12 +13,35 @@ body{
     margin: 0;
 }
 
+#navbar {
+    color: #FFFFFE;
+    background-color: #0F0E17;
+}
+
+#navMenu {
+    color: #FED941;
+    background-color: #0F0E17;
+}
+
+#navbar a {
+    color: #FFFFFE;
+}
+#navbar .active {
+    text-decoration: underline #FED941;
+    text-underline-offset: 5px;
+    color: #FED941;
+}
+
+#navbar a:hover {
+    background-color: #0F0E17;
+    color: #FED941;
+}
+
 #main{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
-
 
 .movie-card{
     width: 300px;
