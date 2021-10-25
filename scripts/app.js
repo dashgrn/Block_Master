@@ -1,6 +1,6 @@
 const IMG_PATH = `https://image.tmdb.org/t/p/w1280`
 const SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&query='
-const POPULAR = `https://api.themoviedb.org/3/movie/popular?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&language=en-US&page=1`
+const POPULAR = `https://api.themoviedb.org/3/movie/popular?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&language=en-US`
 const WORST = `https://api.themoviedb.org/3/discover/movie?sort_by=vote_average.asc&api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&page=1&vote_count.gte=1000&language=en-US`
 const BEST = `http://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&page=1&vote_count.gte=20000&language=en-US`
 
@@ -11,8 +11,9 @@ const btnSearch = document.getElementById('btnSearch')
 const mostValued = document.getElementById('mostValued')
 const lessValued = document.getElementById('lessValued')
 const popularTab = document.getElementById('popular')
+const spinner = document.getElementById('spinner')
 
-
+let page = 2 //default page from response +1
 //GET /pupular movies for homepage
 const getPopular = async () => {
     let popularRes = await fetch(POPULAR)
@@ -187,6 +188,49 @@ function noPoster(poster_path) {
     } else {
         return movieCard.getElementById('thumbnail').setAttribute('src', `${IMG_PATH}${poster_path}`)
     }
+}
+
+//Helper fnct -> infinite scroll
+const getPopularScroll = async () => {
+    showLoader()
+    let popularRes = await fetch(`${POPULAR}&page=${page}`)
+    let popularData = await popularRes.json()
+    let { results } = popularData
+    page = popularData.page +1
+    console.log(popularData.page)
+    hideLoader()
+    return results
+}
+
+const showPopularScroll = async () => {
+    let data = await getPopularScroll()
+    data.forEach(movie => {
+        let { title, overview, poster_path, vote_average } = movie
+        movieCard.getElementById('movieTitle').textContent = title
+        movieCard.getElementById('thumbnail').setAttribute('src', `${IMG_PATH}${poster_path}`)
+        movieCard.getElementById('overviewP').textContent = overview
+        movieCard.querySelector('span').textContent = vote_average
+        let cardClone = movieCard.cloneNode(true)
+        fragment.appendChild(cardClone)
+    });
+    main.appendChild(fragment)
+    console.log(data)
+}
+window.addEventListener('scroll', () => {
+    
+    if (window.scrollY + window.innerHeight >= document.body.offsetHeight - 10) {
+        showPopularScroll()
+    }
+    console.log(page)
+    // page = page+1
+})
+
+//show and hide loader
+const hideLoader = () => {
+    spinner.classList.remove('show')
+}
+const showLoader = () => {
+    spinner.classList.add('show')
 }
 
 /*
