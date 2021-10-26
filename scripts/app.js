@@ -234,21 +234,3 @@ const hideLoader = () => {
 const showLoader = () => {
     spinner.classList.add('show')
 }
-
-/*
-testing the API
-axios.get(`${theMovieDbQuery}${apiKey}&query=${searchQuery}`)
-.then(res => {
-    console.log(`Titulo: ${res.data.results[0].title}`)
-    console.log(res.data.results[0].poster_path)
-    console.log(res.data.results[0].vote_average)
-    console.log(res.data.results[0].id)
-    console.log(res.data.results[0].overview)
-    console.log(res.data.results[0].release_date)
-    console.log(res.data.results[0].genre_ids[0])
-    console.log(res.data.results[0])
-})
-.catch(err => {
-    console.log('Error', err)
-})
-*/
