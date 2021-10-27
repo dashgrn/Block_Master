@@ -42,7 +42,7 @@
       </div>
 
       <div class="navbar-end">
-        <div class="navbar-item field">
+        <div class="navbar-item field my-0">
           <div class="control has-icons-right">
             <form action="">
               <input id="movieSearchInput" class="input" type="search" placeholder="Busca tu peli favorita...">
@@ -52,6 +52,11 @@
             </form>
           </div>
         </div>
+        <div class="navbar-item field">
+          <div class="control">
+              <button id="userBtn" class="button">Tus Datos</button>
+          </div>
+      </div>
       </div>
     </div>
   </nav>
@@ -68,7 +73,7 @@
 
   <template id="movieCard-template">
     <div id="idCont" class="movie-card is-clickable" onclick="getId(this)">
-      <img id="thumbnail" src="https://image.tmdb.org/t/p/w1280/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg" alt="">
+      <img id="thumbnail" src="" alt="">
       <div class="movie-info">
         <h3 id="movieTitle"></h3>
         <span id="score" class=""></span>

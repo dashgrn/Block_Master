@@ -133,3 +133,21 @@ margin-top: 0;
     font-weight: 200;
     font-size: small;
 }
+
+#userBtn {
+    background-color: #FED941;
+    border-color: #FED941;
+}
+#userBtn:hover {
+    background-color: #f5e4a3;
+    border-color: #FED941;
+}
+
+#saveBtn {
+    background-color: #FED941;
+    border-color: #FED941;
+}
+#saveBtn:hover {
+    background-color: #f5e4a3;
+    border-color: #FED941;
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://kit.fontawesome.com/e8172de369.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+    <title>Block Master / User</title>
+</head>
+
+<body>
+    <div class="main">
+        <!-- NAVBAR -->
+        <nav id="navbar" class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="./index.html">
+                    <img src="./img/logo-blockBuster.png" width="40" height="28">
+                </a>
+
+                <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navMenu" class="navbar-menu">
+                <div class="navbar-start">
+
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item field my-0">
+                        <div class="control has-icons-right">
+                            <form action="">
+                                <input id="movieSearchInput" class="input" type="search"
+                                    placeholder="Busca tu peli favorita...">
+                                <span class="icon is-small is-right">
+                                    <button id="btnSearch" class="fa fa-search"></button>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="navbar-item field">
+                        <div class="control">
+                            <button id="userBtn" class="button">Tus Datos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- FORM -->
+        <div class="main is-fullheight">
+            <div class="columns">
+                <div class="column is-half is-offset-one-quarter">
+                    <div class="field">
+                        <label for="name" class="label">Nombre</label>
+                        <div class="control has-icons-left">
+                            <input id="name" class="input" type="text" placeholder="Tu Nombre">
+                            <span class="icon is-small is-left">
+                                <i class=" fas fa-signature"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="username" class="label">Username</label>
+                        <div class="control has-icons-left">
+                            <input id="username" class="input" type="text" placeholder="Tu nombre de usuario" value="">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="field">
+                        <label for="email" class="label">Email</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input id="email" class="input" type="email" placeholder="Tu email" value="">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <button id="saveBtn" class="button">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FORM -->
+    <script src="./scripts/app.js"></script>
+</body>
+
+</html>
