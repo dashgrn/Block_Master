@@ -101,17 +101,17 @@ margin-top: 0;
     transition: transform 0.3s ease-in;
 }
 
-.movie-card:hover .overview{
+/* .movie-card:hover .overview{
     transform: translateY(0);
-}
+} */
 
 #modalTitle {
     font-weight: bold;  
 }
 
-#modal-main {
+#bkgClose {
    background-color:  #0F0E17;
-   opacity: 0.93;
+   opacity: .95;
 }
 
 .modal p{
@@ -120,7 +120,7 @@ margin-top: 0;
 }
 
 #modalBtns {
-    font-weight: bold;
+    font-weight: bold ;
 }
 
 .modal h2{

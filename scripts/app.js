@@ -1,6 +1,6 @@
 const IMG_PATH = `https://image.tmdb.org/t/p/w1280`
 const SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&query='
-const POPULAR = `https://api.themoviedb.org/3/movie/popular?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&language=en-US`
+const POPULAR = `https://api.themoviedb.org/3/movie/popular?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6`
 const WORST = `https://api.themoviedb.org/3/discover/movie?sort_by=vote_average.asc&api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&page=1&vote_count.gte=1000&language=en-US`
 const BEST = `http://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&page=1&vote_count.gte=20000&language=en-US`
 
@@ -12,6 +12,19 @@ const mostValued = document.getElementById('mostValued')
 const lessValued = document.getElementById('lessValued')
 const popularTab = document.getElementById('popular')
 const spinner = document.getElementById('spinner')
+const bkgClose = document.getElementById('bkgClose')
+const modalToClose = document.getElementById('modalToClose')
+const modalCloseBtn = document.getElementById('modalCloseBtn')
+const modalTitle = document.getElementById('modalTitle')
+const modalOverview = document.getElementById('modalOverview')
+const length = document.getElementById('length')
+const modalImg = document.getElementById('modalImg')
+const releaseDate = document.getElementById('releaseDate')
+const genere = document.getElementById('genere')
+
+
+
+let responseKeeper = []
 
 let page = 2 //default page from response +1
 //GET /pupular movies for homepage
@@ -19,6 +32,8 @@ const getPopular = async () => {
     let popularRes = await fetch(POPULAR)
     let popularData = await popularRes.json()
     let { results } = popularData
+    responseKeeper.push(...results)
+    console.log(responseKeeper)
     return results
 }
 
@@ -27,6 +42,7 @@ const getMostValued = async () => {
     let mostValuedRes = await fetch(BEST)
     let mostValuedData = await mostValuedRes.json()
     let { results } = mostValuedData
+    responseKeeper.push(...results)
     return results
 }
 
@@ -35,6 +51,7 @@ const getLessValued = async () => {
     let lessValuedRes = await fetch(WORST)
     let lessValuedData = await lessValuedRes.json()
     let { results } = lessValuedData
+    responseKeeper.push(...results)
     return results
 }
 
@@ -43,6 +60,7 @@ const searchMovie = async (query) => {
     let searchRes = await fetch(`${SEARCH_URL}${query}`)
     let searchData = await searchRes.json()
     let { results } = searchData
+    responseKeeper.push(...results)
     return results
 }
 
@@ -50,6 +68,7 @@ const showPopular = async () => {
     //cleaning search input
     document.getElementById('movieSearchInput').value = ''
     //responsive navbar -->
+
     // Get all "navbar-burger" elements
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
@@ -79,16 +98,17 @@ const showPopular = async () => {
 
     let data = await getPopular()
     data.forEach(movie => {
-        let { title, overview, poster_path, vote_average } = movie
+        let { title, overview, poster_path, vote_average, id } = movie
         movieCard.getElementById('movieTitle').textContent = title
         movieCard.getElementById('thumbnail').setAttribute('src', `${IMG_PATH}${poster_path}`)
         movieCard.getElementById('overviewP').textContent = overview
         movieCard.querySelector('span').textContent = vote_average
+        movieCard.getElementById('idCont').setAttribute('uuid',`${id}`)
         let cardClone = movieCard.cloneNode(true)
         fragment.appendChild(cardClone)
     });
     main.appendChild(fragment)
-    console.log(data)
+    // console.log(data)
 }
 
 
@@ -108,11 +128,12 @@ btnSearch.addEventListener('click', async (e) => {
     lessValued.classList.remove('active')
 
     data.forEach(movie => {
-        let { title, overview, poster_path, vote_average } = movie
+        let { title, overview, poster_path, vote_average, id } = movie
         movieCard.getElementById('movieTitle').textContent = title
         noPoster(poster_path)
         movieCard.getElementById('overviewP').textContent = overview
         movieCard.querySelector('span').textContent = vote_average
+        movieCard.getElementById('idCont').setAttribute('uuid',`${id}`)
         let cardClone = movieCard.cloneNode(true)
         fragment.appendChild(cardClone)
     })
@@ -129,10 +150,12 @@ btnSearch.addEventListener('click', async (e) => {
 mostValued.addEventListener('click', async () => {
     let mostValuedData = await getMostValued()
     mostValuedData.forEach(movie => {
-        let { title, overview, poster_path, vote_average } = movie
+        let { title, overview, poster_path, vote_average, id } = movie
         noPoster(poster_path)
+        movieCard.getElementById('movieTitle').textContent = title
         movieCard.getElementById('overviewP').textContent = overview
         movieCard.querySelector('span').textContent = vote_average
+        movieCard.getElementById('idCont').setAttribute('uuid',`${id}`)
         let cardClone = movieCard.cloneNode(true)
         fragment.appendChild(cardClone)
     })
@@ -151,10 +174,12 @@ mostValued.addEventListener('click', async () => {
 lessValued.addEventListener('click', async () => {
     let lessValuedData = await getLessValued()
     lessValuedData.forEach(movie => {
-        let { title, overview, poster_path, vote_average } = movie
+        let { title, overview, poster_path, vote_average, id } = movie
         noPoster(poster_path)
+        movieCard.getElementById('movieTitle').textContent = title
         movieCard.getElementById('overviewP').textContent = overview
         movieCard.querySelector('span').textContent = vote_average
+        movieCard.getElementById('idCont').setAttribute('uuid',`${id}`)
         let cardClone = movieCard.cloneNode(true)
         fragment.appendChild(cardClone)
     })
@@ -196,6 +221,7 @@ const getPopularScroll = async () => {
     let popularRes = await fetch(`${POPULAR}&page=${page}`)
     let popularData = await popularRes.json()
     let { results } = popularData
+    responseKeeper.push(...results)
     page = popularData.page +1
     console.log(popularData.page)
     hideLoader()
@@ -205,11 +231,12 @@ const getPopularScroll = async () => {
 const showPopularScroll = async () => {
     let data = await getPopularScroll()
     data.forEach(movie => {
-        let { title, overview, poster_path, vote_average } = movie
+        let { title, overview, poster_path, vote_average, id } = movie
         movieCard.getElementById('movieTitle').textContent = title
         movieCard.getElementById('thumbnail').setAttribute('src', `${IMG_PATH}${poster_path}`)
         movieCard.getElementById('overviewP').textContent = overview
         movieCard.querySelector('span').textContent = vote_average
+        movieCard.getElementById('idCont').setAttribute('uuid',`${id}`)
         let cardClone = movieCard.cloneNode(true)
         fragment.appendChild(cardClone)
     });
@@ -234,3 +261,34 @@ const hideLoader = () => {
 const showLoader = () => {
     spinner.classList.add('show')
 }
+
+//CREATING MODAL
+function getId(btn) {
+    let innerData = btn
+    const modalContainer = document.createElement('div')
+    //change values from card template code block
+    const detailsData = responseKeeper.find(movie => movie.id == btn.attributes.uuid.value)
+    let {title, overview, release_date, poster_path, id} = detailsData
+    modalTitle.textContent = title
+    modalOverview.textContent = overview
+    releaseDate.textContent = release_date
+    modalImg.setAttribute('src', `${IMG_PATH + poster_path}`)
+
+
+
+    modalToClose.appendChild(modalContainer)
+    modalToClose.classList.add('is-active')
+    if (modalToClose.classList.length > 1) {
+        const modalCloseBtn = document.getElementById('modalCloseBtn')
+        modalCloseBtn.addEventListener('click', function () {
+          modalToClose.classList.remove('is-active')
+          modalToClose.lastChild.remove()
+          console.log('cerrar modal ended')
+        })
+}}
+
+bkgClose.addEventListener('click', function () {
+    modalToClose.classList.remove('is-active')
+    modalToClose.lastChild.remove()
+    console.log('cerrar modal ended')
+  })
