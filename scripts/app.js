@@ -3,6 +3,9 @@ const SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=ac7020f4cf
 const POPULAR = `https://api.themoviedb.org/3/movie/popular?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6`
 const WORST = `https://api.themoviedb.org/3/discover/movie?sort_by=vote_average.asc&api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&page=1&vote_count.gte=1000&language=en-US`
 const BEST = `http://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&page=1&vote_count.gte=20000&language=en-US`
+const DETAILS1 = 'https://api.themoviedb.org/3/movie/'
+const DETAILS2 = '?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&append_to_response=videos'
+const YOUTUBE = 'https://www.youtube.com/embed/'
 
 const movieCard = document.getElementById('movieCard-template').content
 const fragment = document.createDocumentFragment()
@@ -20,13 +23,20 @@ const modalOverview = document.getElementById('modalOverview')
 const length = document.getElementById('length')
 const modalImg = document.getElementById('modalImg')
 const releaseDate = document.getElementById('releaseDate')
-const genere = document.getElementById('genere')
+const genereSpan = document.getElementById('genereSpan')
+const trailerCont = document.getElementById('trailerCont')
+const trailerFrame = document.getElementById('trailerFrame')
+const btnWatchNow = document.getElementById('btnWatchNow')
+const btnWatchLater = document.getElementById('btnWatchLater')
+const score = document.getElementById('score')
 
 
 
+//variable that keeps the whole record of responses.
 let responseKeeper = []
 
 let page = 2 //default page from response +1
+
 //GET /pupular movies for homepage
 const getPopular = async () => {
     let popularRes = await fetch(POPULAR)
@@ -62,6 +72,14 @@ const searchMovie = async (query) => {
     let { results } = searchData
     responseKeeper.push(...results)
     return results
+}
+
+//GET Details and Video (used in modal)
+const getDetails = async (movieId) => {
+    let queryId = movieId
+    let detailsRes = await fetch(`${DETAILS1}${queryId}${DETAILS2}`)
+    let detailsData = await detailsRes.json()
+    return detailsData
 }
 
 const showPopular = async () => {
@@ -102,8 +120,12 @@ const showPopular = async () => {
         movieCard.getElementById('movieTitle').textContent = title
         movieCard.getElementById('thumbnail').setAttribute('src', `${IMG_PATH}${poster_path}`)
         movieCard.getElementById('overviewP').textContent = overview
+        movieCard.querySelector('span').classList.remove('orange', 'green', 'red')
+        let spanColor = ratingColor(vote_average)
+        console.log(spanColor)
+        movieCard.querySelector('span').classList.add(`${spanColor}`)
         movieCard.querySelector('span').textContent = vote_average
-        movieCard.getElementById('idCont').setAttribute('uuid',`${id}`)
+        movieCard.getElementById('idCont').setAttribute('uuid', `${id}`)
         let cardClone = movieCard.cloneNode(true)
         fragment.appendChild(cardClone)
     });
@@ -132,8 +154,12 @@ btnSearch.addEventListener('click', async (e) => {
         movieCard.getElementById('movieTitle').textContent = title
         noPoster(poster_path)
         movieCard.getElementById('overviewP').textContent = overview
+        movieCard.querySelector('span').classList.remove('orange', 'green', 'red')
+        let spanColor = ratingColor(vote_average)
+        console.log(spanColor)
+        movieCard.querySelector('span').classList.add(`${spanColor}`)
         movieCard.querySelector('span').textContent = vote_average
-        movieCard.getElementById('idCont').setAttribute('uuid',`${id}`)
+        movieCard.getElementById('idCont').setAttribute('uuid', `${id}`)
         let cardClone = movieCard.cloneNode(true)
         fragment.appendChild(cardClone)
     })
@@ -154,8 +180,12 @@ mostValued.addEventListener('click', async () => {
         noPoster(poster_path)
         movieCard.getElementById('movieTitle').textContent = title
         movieCard.getElementById('overviewP').textContent = overview
+        movieCard.querySelector('span').classList.remove('orange', 'green', 'red')
+        let spanColor = ratingColor(vote_average)
+        console.log(spanColor)
+        movieCard.querySelector('span').classList.add(`${spanColor}`)
         movieCard.querySelector('span').textContent = vote_average
-        movieCard.getElementById('idCont').setAttribute('uuid',`${id}`)
+        movieCard.getElementById('idCont').setAttribute('uuid', `${id}`)
         let cardClone = movieCard.cloneNode(true)
         fragment.appendChild(cardClone)
     })
@@ -178,8 +208,12 @@ lessValued.addEventListener('click', async () => {
         noPoster(poster_path)
         movieCard.getElementById('movieTitle').textContent = title
         movieCard.getElementById('overviewP').textContent = overview
+        movieCard.querySelector('span').classList.remove('orange', 'green', 'red')
+        let spanColor = ratingColor(vote_average)
+        console.log(spanColor)
+        movieCard.querySelector('span').classList.add(`${spanColor}`)
         movieCard.querySelector('span').textContent = vote_average
-        movieCard.getElementById('idCont').setAttribute('uuid',`${id}`)
+        movieCard.getElementById('idCont').setAttribute('uuid', `${id}`)
         let cardClone = movieCard.cloneNode(true)
         fragment.appendChild(cardClone)
     })
@@ -196,10 +230,10 @@ lessValued.addEventListener('click', async () => {
 
 
 //helper fnct (coloring via ratings)
-function ratingColor(votes) {
-    if (vote >= 8) {
+function ratingColor(vote_average) {
+    if (vote_average >= 8) {
         return 'green'
-    } else if (vote >= 5) {
+    } else if (vote_average >= 5) {
         return 'orange'
     } else {
         return 'red'
@@ -222,7 +256,7 @@ const getPopularScroll = async () => {
     let popularData = await popularRes.json()
     let { results } = popularData
     responseKeeper.push(...results)
-    page = popularData.page +1
+    page = popularData.page + 1
     console.log(popularData.page)
     hideLoader()
     return results
@@ -235,8 +269,12 @@ const showPopularScroll = async () => {
         movieCard.getElementById('movieTitle').textContent = title
         movieCard.getElementById('thumbnail').setAttribute('src', `${IMG_PATH}${poster_path}`)
         movieCard.getElementById('overviewP').textContent = overview
+        movieCard.querySelector('span').classList.remove('orange', 'green', 'red')
+        let spanColor = ratingColor(vote_average)
+        console.log(spanColor)
+        movieCard.querySelector('span').classList.add(`${spanColor}`)
         movieCard.querySelector('span').textContent = vote_average
-        movieCard.getElementById('idCont').setAttribute('uuid',`${id}`)
+        movieCard.getElementById('idCont').setAttribute('uuid', `${id}`)
         let cardClone = movieCard.cloneNode(true)
         fragment.appendChild(cardClone)
     });
@@ -246,7 +284,7 @@ const showPopularScroll = async () => {
 
 // event listener for SCROLL
 window.addEventListener('scroll', () => {
-    
+
     if (window.scrollY + window.innerHeight >= document.body.offsetHeight - 10) {
         showPopularScroll()
     }
@@ -263,32 +301,55 @@ const showLoader = () => {
 }
 
 //CREATING MODAL
-function getId(btn) {
+async function getId(btn) {
     let innerData = btn
     const modalContainer = document.createElement('div')
     //change values from card template code block
     const detailsData = responseKeeper.find(movie => movie.id == btn.attributes.uuid.value)
-    let {title, overview, release_date, poster_path, id} = detailsData
+    let { title, overview, release_date, poster_path, id } = detailsData
+    let detailsDataApi = await getDetails(id)
+    let { runtime, genres, videos } = detailsDataApi
+    let videoKey = videos.results[0].key
+    console.log(`video key ${videoKey}`)
+    const generesArr = []
+    genres.forEach((genre) => {
+        if (genre.name) {
+            generesArr.push(genre.name)
+        }
+    })
+    generesArr.toString()
+    genereSpan.textContent = generesArr
     modalTitle.textContent = title
     modalOverview.textContent = overview
     releaseDate.textContent = release_date
+    length.textContent = runtime
     modalImg.setAttribute('src', `${IMG_PATH + poster_path}`)
 
-
+    //creating the video frame, listening for btn
+    btnWatchNow.addEventListener('click', () => {
+        console.log(`video key ${videoKey}`)
+        trailerFrame.setAttribute('src', `${YOUTUBE}${videoKey}`)
+        trailerCont.classList.remove('is-hidden')
+    })
 
     modalToClose.appendChild(modalContainer)
     modalToClose.classList.add('is-active')
     if (modalToClose.classList.length > 1) {
         const modalCloseBtn = document.getElementById('modalCloseBtn')
         modalCloseBtn.addEventListener('click', function () {
-          modalToClose.classList.remove('is-active')
-          modalToClose.lastChild.remove()
-          console.log('cerrar modal ended')
+            trailerCont.classList.add('is-hidden')
+            trailerFrame.setAttribute('src', '') //cleaning src so video stops
+            modalToClose.classList.remove('is-active')
+            modalToClose.lastChild.remove()
+            console.log('cerrar modal ended')
         })
-}}
+    }
+}
 
 bkgClose.addEventListener('click', function () {
     modalToClose.classList.remove('is-active')
     modalToClose.lastChild.remove()
+    trailerCont.classList.toggle('is-hidden')
+    trailerFrame.setAttribute('src', '') //cleaning src so video stops
     console.log('cerrar modal ended')
-  })
+})

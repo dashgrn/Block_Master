@@ -71,7 +71,7 @@
       <img id="thumbnail" src="https://image.tmdb.org/t/p/w1280/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg" alt="">
       <div class="movie-info">
         <h3 id="movieTitle"></h3>
-        <span class="orange"></span>
+        <span id="score" class=""></span>
       </div>
       <div class="overview">
         <h3>overview</h3>
@@ -84,25 +84,31 @@
   <div class="modalParent">
     <div id="modalToClose" class="modal">
       <div id="bkgClose" class="modal-background"></div>
-      <div class="modal-content columns">
+      <div>
+        <div class="modal-content columns">
 
-        <!-- MODAL CONTENT -->
-        <img id="modalImg" class="column is-half px-5" src="" alt="">
-        <div class="column is-half">
-          <h2 id="modalTitle" class="title">Venom</h2>
-          <p id="modalOverview" class="title is-7"></p>
+          <!-- MODAL CONTENT -->
+          <img id="modalImg" class="column is-half px-5" src="" alt="">
+          <div class="column is-half">
+            <h2 id="modalTitle" class="title">Venom</h2>
+            <p id="modalOverview" class="title is-7"></p>
 
-          <p class="title is-7 sub"> <span id="releaseDate">2020</span> | <span id="genere">Action</span> | <span id="length">100</span> min.</p>
+            <p class="title is-7 sub"> <span id="releaseDate">2020</span> | <span id="genereSpan"></span> | <span
+                id="length"></span> min.</p>
 
-          <div id="modalBtns" class="field is-grouped">
-            <p class="control">
-              <button id="btnWatchNow" class="button is-warning">VER AHORA</button>
-            </p>
-            <p class="control"></p>
-            <button id="btnWatchLater" class="button is-warning is-outlined">VER DESPÚES</button>
-            </p>
+            <div id="modalBtns" class="field is-grouped">
+              <p class="control">
+                <button id="btnWatchNow" class="button is-warning">VER AHORA</button>
+              </p>
+              <p class="control"></p>
+              <button id="btnWatchLater" class="button is-warning is-outlined">VER DESPÚES</button>
+              </p>
+            </div>
           </div>
         </div>
+        <figure id="trailerCont" class="image is-16by9 is-hidden">
+          <iframe id="trailerFrame" class="has-ratio" width="640" height="360" src="" frameborder="0" allowfullscreen></iframe>
+        </figure>
       </div>
       <!-- MODAL CONTENT -->
 
