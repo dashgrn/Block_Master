@@ -1,5 +1,8 @@
-let saveBtn = document.getElementById('saveBtn')
-let url = 'http://localhost:4001/users'
+const saveBtn = document.getElementById('saveBtn')
+const searchBtn = document.getElementById('searchBtn')
+const url = 'http://localhost:4001/users'
+
+let currentId = 0
 
 saveBtn.addEventListener('click', async (e) => {
     e.preventDefault()
@@ -7,7 +10,7 @@ saveBtn.addEventListener('click', async (e) => {
     let usernameInput = document.getElementById('usernameInput').value
     let emailInput = document.getElementById('emailInput').value
 
-    if (nameInput === '' || usernameInput === '' || emailInput === ''){
+    if (nameInput === '' || usernameInput === '' || emailInput === '') {
         alert('Verifica los datos ingresados, no deben estár vacíos')
     } else {
         await fetch(url, {
@@ -18,14 +21,13 @@ saveBtn.addEventListener('click', async (e) => {
                 email_: emailInput
             }),
             headers: {
-                'Content-Type':"application/json; charset=UTF-8"
+                'Content-Type': "application/json; charset=UTF-8"
             }
         })
     }
-    
+
 })
 
-let currentId = 0
 
 searchBtn.addEventListener('click', async () => {
     let email = document.getElementById('emailInput').value
@@ -35,14 +37,19 @@ searchBtn.addEventListener('click', async () => {
     let data = await res.json()
     console.log(data)
     let search = data.find(user => user.email_.toLowerCase() === email.toLowerCase())
-    const {name_, username, email_, id} = search
-    console.log(name_, username, email_, id)
+    if (search === undefined) {
+        alert('No se ha encontrado ningúna coincidencia')
+        document.getElementById('emailInput').readOnly = false
+        return
+    } else {
+        const { name_, username, email_, id } = search
+        console.log(name_, username, email_, id)
 
-    document.getElementById('nameInput').value = name_
-    document.getElementById('usernameInput').value = username
-    document.getElementById('emailInput').value = email_
-    currentId = id
+        document.getElementById('nameInput').value = name_
+        document.getElementById('usernameInput').value = username
+        document.getElementById('emailInput').value = email_
+        currentId = id
+    }
+
 })
-
-
 
