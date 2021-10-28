@@ -57,6 +57,8 @@ searchBtn.addEventListener('click', async () => {
         document.getElementById('usernameInput').value = username
         document.getElementById('emailInput').value = email_
         currentId = id
+        updateBtn.classList.remove('is-hidden')
+        deleteBtn.classList.remove('is-hidden')
     }
 
 })
@@ -77,8 +79,11 @@ updateBtn.addEventListener("click", async (e) => {
       }
     });
   });
+
   deleteBtn.addEventListener("click", async (e) => {  
     await fetch(`${url}/${currentId}`,{
       method: "DELETE"
     });
+    updateBtn.classList.add('is-hidden')
+    deleteBtn.classList.add('is-hidden')
   });
