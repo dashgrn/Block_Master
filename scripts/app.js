@@ -37,6 +37,8 @@ let responseKeeper = []
 
 let page = 2 //default page from response +1
 
+let antiScroll = false
+
 //GET /pupular movies for homepage
 const getPopular = async () => {
     let popularRes = await fetch(POPULAR)
@@ -138,7 +140,7 @@ const showPopular = async () => {
 //showing popular when home loads
 document.addEventListener('DOMContentLoaded', showPopular)
 
-let antiScroll = false
+
 
 btnSearch.addEventListener('click', async (e) => {
     e.preventDefault()

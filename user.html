@@ -34,17 +34,7 @@
                 </div>
 
                 <div class="navbar-end">
-                    <div class="navbar-item field my-0">
-                        <div class="control has-icons-right">
-                            <form action="">
-                                <input id="movieSearchInput" class="input" type="search"
-                                    placeholder="Busca tu peli favorita...">
-                                <span class="icon is-small is-right">
-                                    <button id="btnSearch" class="fa fa-search"></button>
-                                </span>
-                            </form>
-                        </div>
-                    </div>
+
                     <div class="navbar-item field">
                         <div class="control">
                             <button id="userBtn" class="button">Tus Datos</button>
@@ -58,52 +48,53 @@
         <!-- FORM -->
         <div class="main is-fullheight">
             <div class="columns">
-                <div class="column is-half is-offset-one-quarter">
-                    <div class="field">
-                        <label for="name" class="label">Nombre</label>
-                        <div class="control has-icons-left">
-                            <input id="name" class="input" type="text" placeholder="Tu Nombre">
-                            <span class="icon is-small is-left">
-                                <i class=" fas fa-signature"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label for="username" class="label">Username</label>
-                        <div class="control has-icons-left">
-                            <input id="username" class="input" type="text" placeholder="Tu nombre de usuario" value="">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
-                            </span>
-
+                    <div class="column is-half is-offset-one-quarter">
+                        <div class="field">
+                            <label for="name" class="label">Nombre</label>
+                            <div class="control has-icons-left">
+                                <input id="nameInput" class="input" type="text" placeholder="Tu Nombre">
+                                <span class="icon is-small is-left">
+                                    <i class=" fas fa-signature"></i>
+                                </span>
+                            </div>
                         </div>
 
-                    </div>
+                        <div class="field">
+                            <label for="username" class="label">Username</label>
+                            <div class="control has-icons-left">
+                                <input id="usernameInput" class="input" type="text" placeholder="Tu nombre de usuario"
+                                    value="">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
 
-                    <div class="field">
-                        <label for="email" class="label">Email</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input id="email" class="input" type="email" placeholder="Tu email" value="">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-envelope"></i>
-                            </span>
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="field">
+                            <label for="email" class="label">Email</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input id="emailInput" class="input" type="email" placeholder="Tu email" value="">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
 
-                    <div class="field">
-                        <div class="control">
-                            <button id="saveBtn" class="button">Guardar</button>
+                            </div>
+
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <button id="saveBtn" class="button">Guardar</button>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
     <!-- FORM -->
-    <script src="./scripts/app.js"></script>
+    <script src="./scripts/user.js"></script>
 </body>
 
 </html>
