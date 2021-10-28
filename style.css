@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 
-body{
+html, body{
     background-color: #0F0E17;
     font-family: 'Montserrat', sans-serif;
     margin: 0;
@@ -152,3 +152,4 @@ margin-top: 0;
     background-color: #f5e4a3;
     border-color: #FED941;
 }
+

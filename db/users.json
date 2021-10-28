@@ -1,12 +1,6 @@
 {
   "users": [
     {
-      "id": 1,
-      "name_": "Jon",
-      "username": "Doe",
-      "email_": "jondoe@gmail.com"
-    },
-    {
       "name_": "Jose",
       "username": "dashgrn",
       "email_": "josesk20@gmail.com",
@@ -17,6 +11,12 @@
       "username": "Mejía",
       "email_": "valentina@gmail.com",
       "id": 3
+    },
+    {
+      "name_": "Jon",
+      "username": "DoeNew",
+      "email_": "jondoe@gmail.com",
+      "id": 4
     }
   ]
 }

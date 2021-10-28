@@ -1,8 +1,16 @@
 const saveBtn = document.getElementById('saveBtn')
 const searchBtn = document.getElementById('searchBtn')
+const updateBtn = document.getElementById('editBtn')
+const deleteBtn = document.getElementById('deleteBtn')
 const url = 'http://localhost:4001/users'
 
 let currentId = 0
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('nameInput').value = ''
+    document.getElementById('usernameInput').value = ''
+    document.getElementById('emailInput').value = ''
+})
 
 saveBtn.addEventListener('click', async (e) => {
     e.preventDefault()
@@ -53,3 +61,24 @@ searchBtn.addEventListener('click', async () => {
 
 })
 
+updateBtn.addEventListener("click", async (e) => {
+    let nameInput = document.getElementById('nameInput').value
+    let usernameInput = document.getElementById('usernameInput').value
+    let emailInput = document.getElementById('emailInput').value  
+    await fetch(`${url}/${currentId}`,{
+      method: "PUT",
+      body: JSON.stringify({
+        name_: nameInput,
+        username: usernameInput,
+        email_: emailInput
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8"
+      }
+    });
+  });
+  deleteBtn.addEventListener("click", async (e) => {  
+    await fetch(`${url}/${currentId}`,{
+      method: "DELETE"
+    });
+  });
