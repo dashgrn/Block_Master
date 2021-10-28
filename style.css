@@ -143,11 +143,12 @@ margin-top: 0;
     border-color: #FED941;
 }
 
-#saveBtn {
+#butonsGrp button{
     background-color: #FED941;
     border-color: #FED941;
 }
-#saveBtn:hover {
+
+.button:hover{
     background-color: #f5e4a3;
     border-color: #FED941;
 }

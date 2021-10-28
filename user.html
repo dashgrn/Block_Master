@@ -48,48 +48,65 @@
         <!-- FORM -->
         <div class="main is-fullheight">
             <div class="columns">
-                    <div class="column is-half is-offset-one-quarter">
-                        <div class="field">
-                            <label for="name" class="label">Nombre</label>
-                            <div class="control has-icons-left">
-                                <input id="nameInput" class="input" type="text" placeholder="Tu Nombre">
-                                <span class="icon is-small is-left">
-                                    <i class=" fas fa-signature"></i>
-                                </span>
-                            </div>
+                <div class="column is-half is-offset-one-quarter">
+                    <div class="field">
+                        <label for="name" class="label">Nombre</label>
+                        <div class="control has-icons-left">
+                            <input id="nameInput" class="input" type="text" placeholder="Tu Nombre">
+                            <span class="icon is-small is-left">
+                                <i class=" fas fa-signature"></i>
+                            </span>
                         </div>
+                    </div>
 
-                        <div class="field">
-                            <label for="username" class="label">Username</label>
-                            <div class="control has-icons-left">
-                                <input id="usernameInput" class="input" type="text" placeholder="Tu nombre de usuario"
-                                    value="">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-user"></i>
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                        <div class="field">
-                            <label for="email" class="label">Email</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input id="emailInput" class="input" type="email" placeholder="Tu email" value="">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-envelope"></i>
-                                </span>
-
-                            </div>
+                    <div class="field">
+                        <label for="username" class="label">Username</label>
+                        <div class="control has-icons-left">
+                            <input id="usernameInput" class="input" type="text" placeholder="Tu nombre de usuario"
+                                value="">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
 
                         </div>
 
+                    </div>
+
+                    <div class="field">
+                        <label for="email" class="label" required>Email</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input id="emailInput" class="input" type="email" placeholder="Tu email" value="">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div id="butonsGrp">
                         <div class="field">
                             <div class="control">
                                 <button id="saveBtn" class="button">Guardar</button>
                             </div>
                         </div>
+                        <div class="field">
+                            <div class="control">
+                                <button id="searchBtn" class="button">Buscar por correo</button>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <button id="editBtn" class="button">Editar info</button>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <button id="deleteBtn" class="button">Eliminar Cuenta</button>
+                            </div>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
