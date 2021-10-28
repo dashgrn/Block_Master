@@ -15,7 +15,7 @@ saveBtn.addEventListener('click', async (e) => {
             body: JSON.stringify({
                 name_: nameInput,
                 username: usernameInput,
-                email: emailInput
+                email_: emailInput
             }),
             headers: {
                 'Content-Type':"application/json; charset=UTF-8"
@@ -24,6 +24,8 @@ saveBtn.addEventListener('click', async (e) => {
     }
     
 })
+
+let currentId = 0
 
 searchBtn.addEventListener('click', async () => {
     let email = document.getElementById('emailInput').value
@@ -39,7 +41,7 @@ searchBtn.addEventListener('click', async () => {
     document.getElementById('nameInput').value = name_
     document.getElementById('usernameInput').value = username
     document.getElementById('emailInput').value = email_
-    // document.getElementById('id').value = id
+    currentId = id
 })
 
 
