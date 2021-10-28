@@ -2,14 +2,14 @@
   "users": [
     {
       "id": 1,
-      "nombre": "Jon",
-      "apellido": "Doe",
-      "correo": "jondoe@gmail.com"
+      "name_": "Jon",
+      "username": "Doe",
+      "email_": "jondoe@gmail.com"
     },
     {
       "name_": "Jose",
       "username": "dashgrn",
-      "email": "josesk20@gmail.com",
+      "email_": "josesk20@gmail.com",
       "id": 2
     }
   ]

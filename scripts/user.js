@@ -26,20 +26,20 @@ saveBtn.addEventListener('click', async (e) => {
 })
 
 searchBtn.addEventListener('click', async () => {
-    let email = document.getElementById('email').value
+    let email = document.getElementById('emailInput').value
     document.getElementById('emailInput').readOnly = true
 
-    let res = await fetch('http://localhost:4002/usuarios')
+    let res = await fetch('http://localhost:4001/users')
     let data = await res.json()
     console.log(data)
-    let search = data.find(user => user.correo.toLowerCase() === email.toLowerCase())
-    const {nombre, apellido, correo, id} = search
-    console.log(nombre, apellido, correo, id)
+    let search = data.find(user => user.email_.toLowerCase() === email.toLowerCase())
+    const {name_, username, email_, id} = search
+    console.log(name_, username, email_, id)
 
-    document.getElementById('name').value = nombre
-    document.getElementById('lastName').value = apellido
-    document.getElementById('email').value = correo
-    document.getElementById('id').value = id
+    document.getElementById('nameInput').value = name_
+    document.getElementById('usernameInput').value = username
+    document.getElementById('emailInput').value = email_
+    // document.getElementById('id').value = id
 })
 
 
