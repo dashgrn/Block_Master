@@ -125,7 +125,6 @@ const showPopular = async () => {
         movieCard.getElementById('overviewP').textContent = overview
         movieCard.querySelector('span').classList.remove('orange', 'green', 'red')
         let spanColor = ratingColor(vote_average)
-        console.log(spanColor)
         movieCard.querySelector('span').classList.add(`${spanColor}`)
         movieCard.querySelector('span').textContent = vote_average
         movieCard.getElementById('idCont').setAttribute('uuid', `${id}`)

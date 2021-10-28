@@ -1,0 +1,8 @@
+{
+    "users": [
+      {
+        "id": "1",
+        "movieId": "374720",
+        "liked": true
+      },
+  }

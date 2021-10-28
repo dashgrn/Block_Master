@@ -36,7 +36,6 @@ saveBtn.addEventListener('click', async (e) => {
 
 })
 
-
 searchBtn.addEventListener('click', async () => {
     let email = document.getElementById('emailInput').value
     document.getElementById('emailInput').readOnly = true
