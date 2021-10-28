@@ -147,9 +147,12 @@ margin-top: 0;
     background-color: #FED941;
     border-color: #FED941;
 }
-
-.button:hover{
+#butonsGrp button:hover{
     background-color: #f5e4a3;
     border-color: #FED941;
 }
 
+.btnMargin {
+    margin-left: 6rem;
+    margin-right: 6rem;
+}
