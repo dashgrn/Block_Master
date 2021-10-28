@@ -84,6 +84,7 @@ const getDetails = async (movieId) => {
 
 const showPopular = async () => {
     //cleaning search input
+    antiScroll = false
     document.getElementById('movieSearchInput').value = ''
     //responsive navbar -->
 
@@ -137,10 +138,11 @@ const showPopular = async () => {
 //showing popular when home loads
 document.addEventListener('DOMContentLoaded', showPopular)
 
-
+let antiScroll = false
 
 btnSearch.addEventListener('click', async (e) => {
     e.preventDefault()
+    antiScroll = true
     let searchQuery = document.getElementById('movieSearchInput').value
     let data = await searchMovie(searchQuery)
 
@@ -174,6 +176,7 @@ btnSearch.addEventListener('click', async (e) => {
 
 
 mostValued.addEventListener('click', async () => {
+    antiScroll = false
     let mostValuedData = await getMostValued()
     mostValuedData.forEach(movie => {
         let { title, overview, poster_path, vote_average, id } = movie
@@ -202,6 +205,7 @@ mostValued.addEventListener('click', async () => {
 
 
 lessValued.addEventListener('click', async () => {
+    antiScroll = false
     let lessValuedData = await getLessValued()
     lessValuedData.forEach(movie => {
         let { title, overview, poster_path, vote_average, id } = movie
@@ -284,12 +288,16 @@ const showPopularScroll = async () => {
 
 // event listener for SCROLL
 window.addEventListener('scroll', () => {
-
-    if (window.scrollY + window.innerHeight >= document.body.offsetHeight - 10) {
-        showPopularScroll()
+    if (antiScroll === true) {
+        return
+    } else {
+        if (window.scrollY + window.innerHeight >= document.body.offsetHeight - 10) {
+            showPopularScroll()
+        }
+        console.log(page)
+        // page = page+1
     }
-    console.log(page)
-    // page = page+1
+    
 })
 
 //show and hide loader
@@ -311,6 +319,7 @@ async function getId(btn) {
     let { runtime, genres, videos } = detailsDataApi
     let videoKey = videos.results[0].key
     console.log(`video key ${videoKey}`)
+    console.log(detailsDataApi)
     const generesArr = []
     genres.forEach((genre) => {
         if (genre.name) {
@@ -329,6 +338,7 @@ async function getId(btn) {
     btnWatchNow.addEventListener('click', () => {
         console.log(`video key ${videoKey}`)
         trailerFrame.setAttribute('src', `${YOUTUBE}${videoKey}`)
+        
         trailerCont.classList.remove('is-hidden')
     })
 
