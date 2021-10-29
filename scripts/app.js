@@ -29,7 +29,7 @@ const trailerFrame = document.getElementById('trailerFrame')
 const btnWatchNow = document.getElementById('btnWatchNow')
 const btnWatchLater = document.getElementById('btnWatchLater')
 const score = document.getElementById('score')
-
+const playlistBtn = document.getElementById('playlistBtn')
 
 
 //variable that keeps the whole record of responses.
