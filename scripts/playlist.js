@@ -1,0 +1,1 @@
+const heartIco = document.getElementById('heartIco')
