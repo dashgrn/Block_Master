@@ -1,8 +1,24 @@
 {
-    "users": [
-      {
-        "id": "1",
-        "movieId": "374720",
-        "liked": true
-      },
-  }
+  "playlist": [
+    {
+      "liked": "false",
+      "title": "V2 Be Carnage",
+      "id": 1
+    },
+    {
+      "liked": "false",
+      "title": "V2 Be Carnage3333",
+      "id": 2
+    },
+    {
+      "liked": "false",
+      "title": "V3434ge",
+      "id": 3
+    },
+    {
+      "liked": "true",
+      "title": "asdrnage",
+      "id": 4
+    }
+  ]
+}

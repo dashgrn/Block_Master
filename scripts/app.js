@@ -298,7 +298,7 @@ window.addEventListener('scroll', () => {
         console.log(page)
         // page = page+1
     }
-    
+
 })
 
 //show and hide loader
@@ -339,9 +339,25 @@ async function getId(btn) {
     btnWatchNow.addEventListener('click', () => {
         console.log(`video key ${videoKey}`)
         trailerFrame.setAttribute('src', `${YOUTUBE}${videoKey}`)
-        
+
         trailerCont.classList.remove('is-hidden')
     })
+
+    //adding to playlist listener
+    btnWatchLater.addEventListener('click', async () => {
+        console.log(title)
+        let listObj = {
+            title: `${title}`,
+            liked: "false"
+        }
+        await fetch('http://localhost:4002/playlist', {
+            method: 'POST',
+            body: JSON.stringify(listObj),
+            headers: {
+                "Content-Type": "application/json; charset=UTF-8"
+            }
+        })
+    }, { once: true })
 
     modalToClose.appendChild(modalContainer)
     modalToClose.classList.add('is-active')

@@ -160,3 +160,7 @@ margin-top: 0;
 .listBack {
     background-color:#0b0d20e3;
 }
+
+#deleteTd {
+    text-align: end;
+}
