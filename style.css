@@ -164,3 +164,12 @@ margin-top: 0;
 #deleteTd {
     text-align: end;
 }
+
+.notFound {
+    width: 400px;
+}
+
+.splide__slide img {
+    width: 100%;
+    height: auto;
+  }

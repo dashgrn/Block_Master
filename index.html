@@ -6,10 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Block Master</title>
+  <link rel="stylesheet" href="./hlpr/splide-3.2.1/dist/css/splide.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   <link rel="stylesheet" href="./style.css">
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://kit.fontawesome.com/e8172de369.js" crossorigin="anonymous"></script>
+  <script src="./hlpr/splide-3.2.1/dist/js/splide.min.js" ></script>
 </head>
 
 <body>
@@ -39,7 +41,7 @@
         <a id="lessValued" class="navbar-item">
           Menos valoradas
         </a>
-        <a id="playlistBtn" class="navbar-item">
+        <a id="playlistBtn" class="navbar-item" href="./playlist.html">
           Tu lista
         </a>
       </div>
@@ -65,9 +67,30 @@
   </nav>
 
   <!-- SLIDER -->
-
+  <div class="splide mx-6">
+    <div class="splide__track">
+      <ul class="splide__list my-5">
+        <li class="splide__slide">
+          <div class="splide__slide__container">
+            <img src="./img/postertest.jpg">
+          </div>
+        </li>
+        <li class="splide__slide">
+          <div class="splide__slide__container">
+            <img src="./img/postertest.jpg">
+          </div>
+        </li>
+        <li class="splide__slide">
+          <div class="splide__slide__container">
+            <img src="./img/postertest.jpg">
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
   <!-- SLIDER -->
 
+  <h2 id="pageName" class="title mx-5 my-5 has-text-white"></h2>
   <div id="main">
     <!-- main content goes here -->
   </div>
@@ -126,7 +149,7 @@
   </div>
   <!-- MODAL -->
 
-  <!-- <script src="./scripts/config.js"></script> -->
+ 
   <script src="./scripts/app.js"></script>
 </body>
 

@@ -30,6 +30,7 @@ const btnWatchNow = document.getElementById('btnWatchNow')
 const btnWatchLater = document.getElementById('btnWatchLater')
 const score = document.getElementById('score')
 const playlistBtn = document.getElementById('playlistBtn')
+const pageName = document.getElementById('pageName')
 
 
 //variable that keeps the whole record of responses.
@@ -39,13 +40,30 @@ let page = 2 //default page from response +1
 
 let antiScroll = false
 
+//Carousel
+const carouselConstructor = () => {
+    var splide = new Splide( '.splide', {
+        cover: true,
+        fixedWidth: '1200px',
+		fixedHeight: '310px',
+        type: 'loop',
+        padding: { left: '5rem', right: '5rem' }
+      } );
+      
+      splide.mount();
+}
+
+const carouselFiller = () => {
+    
+}
+
+
 //GET /pupular movies for homepage
 const getPopular = async () => {
     let popularRes = await fetch(POPULAR)
     let popularData = await popularRes.json()
     let { results } = popularData
     responseKeeper.push(...results)
-    console.log(responseKeeper)
     return results
 }
 
@@ -117,6 +135,8 @@ const showPopular = async () => {
     mostValued.classList.remove('active')
     lessValued.classList.remove('active')
 
+    pageName.textContent = 'Todas las películas'
+
     let data = await getPopular()
     data.forEach(movie => {
         let { title, overview, poster_path, vote_average, id } = movie
@@ -132,12 +152,15 @@ const showPopular = async () => {
         fragment.appendChild(cardClone)
     });
     main.appendChild(fragment)
-    // console.log(data)
 }
 
 
 //showing popular when home loads
-document.addEventListener('DOMContentLoaded', showPopular)
+document.addEventListener('DOMContentLoaded', () => {
+    showPopular()
+    carouselConstructor()
+    carouselFiller()
+})
 
 
 
@@ -147,30 +170,38 @@ btnSearch.addEventListener('click', async (e) => {
     let searchQuery = document.getElementById('movieSearchInput').value
     let data = await searchMovie(searchQuery)
 
+    pageName.textContent = 'Resultados de búsqueda'
     //removing classes from tabs
     popularTab.classList.remove('active')
     mostValued.classList.remove('active')
     lessValued.classList.remove('active')
+    if (data.length < 1) {
+        main.innerHTML = `
+        <div class="notFound my-6 has-text-centered">
+            <img src="./img/notfound.png" alt="">
+            <h2 class="has-text-white">No hemos encontrado resultados para: ${searchQuery} </h2>
+        </div>
+        `
+    } else {
+        data.forEach(movie => {
+            let { title, overview, poster_path, vote_average, id } = movie
+            movieCard.getElementById('movieTitle').textContent = title
+            noPoster(poster_path)
+            movieCard.getElementById('overviewP').textContent = overview
+            movieCard.querySelector('span').classList.remove('orange', 'green', 'red')
+            let spanColor = ratingColor(vote_average)
+            movieCard.querySelector('span').classList.add(`${spanColor}`)
+            movieCard.querySelector('span').textContent = vote_average
+            movieCard.getElementById('idCont').setAttribute('uuid', `${id}`)
+            let cardClone = movieCard.cloneNode(true)
+            fragment.appendChild(cardClone)
+        })
+        main.innerHTML = ''
+        main.appendChild(fragment)
+    }
 
-    data.forEach(movie => {
-        let { title, overview, poster_path, vote_average, id } = movie
-        movieCard.getElementById('movieTitle').textContent = title
-        noPoster(poster_path)
-        movieCard.getElementById('overviewP').textContent = overview
-        movieCard.querySelector('span').classList.remove('orange', 'green', 'red')
-        let spanColor = ratingColor(vote_average)
-        console.log(spanColor)
-        movieCard.querySelector('span').classList.add(`${spanColor}`)
-        movieCard.querySelector('span').textContent = vote_average
-        movieCard.getElementById('idCont').setAttribute('uuid', `${id}`)
-        let cardClone = movieCard.cloneNode(true)
-        fragment.appendChild(cardClone)
-    })
-    main.innerHTML = ''
-    main.appendChild(fragment)
     //cleaning search input
     document.getElementById('movieSearchInput').value = ''
-    console.log(data)
 })
 
 
@@ -178,6 +209,7 @@ btnSearch.addEventListener('click', async (e) => {
 
 mostValued.addEventListener('click', async () => {
     antiScroll = false
+    pageName.textContent = 'Películas más valoradas'
     let mostValuedData = await getMostValued()
     mostValuedData.forEach(movie => {
         let { title, overview, poster_path, vote_average, id } = movie
@@ -186,7 +218,6 @@ mostValued.addEventListener('click', async () => {
         movieCard.getElementById('overviewP').textContent = overview
         movieCard.querySelector('span').classList.remove('orange', 'green', 'red')
         let spanColor = ratingColor(vote_average)
-        console.log(spanColor)
         movieCard.querySelector('span').classList.add(`${spanColor}`)
         movieCard.querySelector('span').textContent = vote_average
         movieCard.getElementById('idCont').setAttribute('uuid', `${id}`)
@@ -201,12 +232,12 @@ mostValued.addEventListener('click', async () => {
     main.appendChild(fragment)
 
     document.getElementById('movieSearchInput').value = ''
-    console.log(mostValuedData)
 })
 
 
 lessValued.addEventListener('click', async () => {
     antiScroll = false
+    pageName.textContent = 'Películas menos valoradas'
     let lessValuedData = await getLessValued()
     lessValuedData.forEach(movie => {
         let { title, overview, poster_path, vote_average, id } = movie
@@ -215,7 +246,6 @@ lessValued.addEventListener('click', async () => {
         movieCard.getElementById('overviewP').textContent = overview
         movieCard.querySelector('span').classList.remove('orange', 'green', 'red')
         let spanColor = ratingColor(vote_average)
-        console.log(spanColor)
         movieCard.querySelector('span').classList.add(`${spanColor}`)
         movieCard.querySelector('span').textContent = vote_average
         movieCard.getElementById('idCont').setAttribute('uuid', `${id}`)
@@ -230,7 +260,6 @@ lessValued.addEventListener('click', async () => {
     main.appendChild(fragment)
 
     document.getElementById('movieSearchInput').value = ''
-    console.log(lessValuedData)
 })
 
 
@@ -262,7 +291,6 @@ const getPopularScroll = async () => {
     let { results } = popularData
     responseKeeper.push(...results)
     page = popularData.page + 1
-    console.log(popularData.page)
     hideLoader()
     return results
 }
@@ -276,7 +304,6 @@ const showPopularScroll = async () => {
         movieCard.getElementById('overviewP').textContent = overview
         movieCard.querySelector('span').classList.remove('orange', 'green', 'red')
         let spanColor = ratingColor(vote_average)
-        console.log(spanColor)
         movieCard.querySelector('span').classList.add(`${spanColor}`)
         movieCard.querySelector('span').textContent = vote_average
         movieCard.getElementById('idCont').setAttribute('uuid', `${id}`)
@@ -284,7 +311,6 @@ const showPopularScroll = async () => {
         fragment.appendChild(cardClone)
     });
     main.appendChild(fragment)
-    console.log(data)
 }
 
 // event listener for SCROLL
@@ -295,10 +321,8 @@ window.addEventListener('scroll', () => {
         if (window.scrollY + window.innerHeight >= document.body.offsetHeight - 10) {
             showPopularScroll()
         }
-        console.log(page)
         // page = page+1
     }
-
 })
 
 //show and hide loader
@@ -319,8 +343,6 @@ async function getId(btn) {
     let detailsDataApi = await getDetails(id)
     let { runtime, genres, videos } = detailsDataApi
     let videoKey = videos.results[0].key
-    console.log(`video key ${videoKey}`)
-    console.log(detailsDataApi)
     const generesArr = []
     genres.forEach((genre) => {
         if (genre.name) {
@@ -337,15 +359,12 @@ async function getId(btn) {
 
     //creating the video frame, listening for btn
     btnWatchNow.addEventListener('click', () => {
-        console.log(`video key ${videoKey}`)
         trailerFrame.setAttribute('src', `${YOUTUBE}${videoKey}`)
-
         trailerCont.classList.remove('is-hidden')
     })
 
     //adding to playlist listener
     btnWatchLater.addEventListener('click', async () => {
-        console.log(title)
         let listObj = {
             title: `${title}`,
             liked: "false"
@@ -362,13 +381,11 @@ async function getId(btn) {
     modalToClose.appendChild(modalContainer)
     modalToClose.classList.add('is-active')
     if (modalToClose.classList.length > 1) {
-        const modalCloseBtn = document.getElementById('modalCloseBtn')
-        modalCloseBtn.addEventListener('click', function () {
+            modalCloseBtn.addEventListener('click', function () {
             trailerCont.classList.add('is-hidden')
             trailerFrame.setAttribute('src', '') //cleaning src so video stops
             modalToClose.classList.remove('is-active')
             modalToClose.lastChild.remove()
-            console.log('cerrar modal ended')
         })
     }
 }
@@ -376,7 +393,6 @@ async function getId(btn) {
 bkgClose.addEventListener('click', function () {
     modalToClose.classList.remove('is-active')
     modalToClose.lastChild.remove()
-    trailerCont.classList.toggle('is-hidden')
+    trailerCont.classList.add('is-hidden')
     trailerFrame.setAttribute('src', '') //cleaning src so video stops
-    console.log('cerrar modal ended')
 })
