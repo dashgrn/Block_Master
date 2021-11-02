@@ -42,21 +42,44 @@ let antiScroll = false
 
 //Carousel
 const carouselConstructor = () => {
-    var splide = new Splide( '.splide', {
+    var splide = new Splide('.splide', {
         cover: true,
         fixedWidth: '1200px',
-		fixedHeight: '310px',
+        fixedHeight: '310px',
         type: 'loop',
-        padding: { left: '5rem', right: '5rem' }
-      } );
-      
-      splide.mount();
+        padding: { left: '3rem', right: '3rem' },
+        gap: '3em',
+    });
+
+    splide.mount();
 }
 
-const carouselFiller = () => {
-    
+const carouselFiller = async () => {
+    const slideContainer = document.getElementById('slideContainer')
+    let slideImgs = await getPopular()
+    console.log(slideImgs.slice(0,5))
+    slideImgs.slice(0,5).forEach(movie => {
+        slideContainer.innerHTML += `
+        <li class="splide__slide">
+          <div class="splide__slide__container">
+            <img id="imageSrc" src="${IMG_PATH}${movie.poster_path}">
+          </div>
+        </li>
+        `
+        console.log(movie.poster_path)
+    })
+    carouselConstructor()
 }
 
+
+const generalErr = () => {
+    main.innerHTML = `
+        <div class="notFound my-6 has-text-centered">
+            <img src="./img/notfound.png" alt="">
+            <h2 class="has-text-white">Ups, algo salió mal</h2>
+        </div>
+        `
+}
 
 //GET /pupular movies for homepage
 const getPopular = async () => {
@@ -64,6 +87,10 @@ const getPopular = async () => {
     let popularData = await popularRes.json()
     let { results } = popularData
     responseKeeper.push(...results)
+    if (results === null || results === undefined) {
+        generalErr()
+        return
+    }
     return results
 }
 
@@ -103,8 +130,8 @@ const getDetails = async (movieId) => {
 }
 
 const showPopular = async () => {
-    //cleaning search input
     antiScroll = false
+    //cleaning search input
     document.getElementById('movieSearchInput').value = ''
     //responsive navbar -->
 
@@ -158,7 +185,7 @@ const showPopular = async () => {
 //showing popular when home loads
 document.addEventListener('DOMContentLoaded', () => {
     showPopular()
-    carouselConstructor()
+    
     carouselFiller()
 })
 
@@ -285,13 +312,13 @@ function noPoster(poster_path) {
 
 //Helper fnct -> infinite scroll
 const getPopularScroll = async () => {
-    showLoader()
+    // showLoader()
     let popularRes = await fetch(`${POPULAR}&page=${page}`)
     let popularData = await popularRes.json()
     let { results } = popularData
     responseKeeper.push(...results)
     page = popularData.page + 1
-    hideLoader()
+    // hideLoader()
     return results
 }
 
@@ -327,10 +354,10 @@ window.addEventListener('scroll', () => {
 
 //show and hide loader
 const hideLoader = () => {
-    spinner.classList.remove('show')
+    spinner.classList.toggle('is-hidden')
 }
 const showLoader = () => {
-    spinner.classList.add('show')
+    spinner.classList.toggle('is-hidden')
 }
 
 //CREATING MODAL
@@ -381,7 +408,7 @@ async function getId(btn) {
     modalToClose.appendChild(modalContainer)
     modalToClose.classList.add('is-active')
     if (modalToClose.classList.length > 1) {
-            modalCloseBtn.addEventListener('click', function () {
+        modalCloseBtn.addEventListener('click', function () {
             trailerCont.classList.add('is-hidden')
             trailerFrame.setAttribute('src', '') //cleaning src so video stops
             modalToClose.classList.remove('is-active')

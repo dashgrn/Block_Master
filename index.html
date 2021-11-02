@@ -69,33 +69,25 @@
   <!-- SLIDER -->
   <div class="splide mx-6">
     <div class="splide__track">
-      <ul class="splide__list my-5">
-        <li class="splide__slide">
+      <ul id="slideContainer" class="splide__list my-5">
+        <!-- <li class="splide__slide">
           <div class="splide__slide__container">
-            <img src="./img/postertest.jpg">
+            <img id="imageSrc" src="https://image.tmdb.org/t/p/w1280/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg">
           </div>
-        </li>
-        <li class="splide__slide">
-          <div class="splide__slide__container">
-            <img src="./img/postertest.jpg">
-          </div>
-        </li>
-        <li class="splide__slide">
-          <div class="splide__slide__container">
-            <img src="./img/postertest.jpg">
-          </div>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
   <!-- SLIDER -->
 
   <h2 id="pageName" class="title mx-5 my-5 has-text-white"></h2>
+  
   <div id="main">
     <!-- main content goes here -->
+    <i id="spinner" class="fa fa-circle-o-notch fa-spin has-text-center is-centered is-hidden" style="font-size:54px"></i>
   </div>
 
-  <i id="spinner" class="fa fa-circle-o-notch fa-spin " style="font-size:24px"></i>
+  
 
   <template id="movieCard-template">
     <div id="idCont" class="movie-card is-clickable" onclick="getId(this)">
