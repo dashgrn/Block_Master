@@ -2,7 +2,7 @@ const IMG_PATH = `https://image.tmdb.org/t/p/w1280`
 const SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&query='
 const POPULAR = `https://api.themoviedb.org/3/movie/popular?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6`
 const WORST = `https://api.themoviedb.org/3/discover/movie?sort_by=vote_average.asc&api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&page=1&vote_count.gte=1000&language=en-US`
-const BEST = `http://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&page=1&vote_count.gte=20000&language=en-US`
+const BEST = `https://api.themoviedb.org/3/discover/movie?sort_by=vote_average.desc&api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&page=1&vote_count.gte=20000&language=en-US`
 const DETAILS1 = 'https://api.themoviedb.org/3/movie/'
 const DETAILS2 = '?api_key=ac7020f4cf002f4c5f7b6d87ae76e0e6&append_to_response=videos'
 const YOUTUBE = 'https://www.youtube.com/embed/'

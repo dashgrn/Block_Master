@@ -4,6 +4,7 @@ const PLAYLIST_URL = 'http://localhost:4002/playlist'
 const heartIco = document.getElementById('heartIco')
 const rowTemplate = document.getElementById('rowTemplate')
 const rowContainer = document.getElementById('rowContainer')
+const emptyInfo = document.getElementById('emptyInfo')
 
 const getList = async () => {
     let listDataReq = await fetch(PLAYLIST_URL)
@@ -15,21 +16,26 @@ const getList = async () => {
 document.addEventListener('DOMContentLoaded', async () => {
     let listDataRes = await getList()
     console.log(listDataRes)
-    listDataRes.forEach(movie => {
-        let heartClass
-        if (movie.liked === "true") {
-            heartClass = "fas fa-heart has-text-white"
-        } else {
-            heartClass = "far fa-heart has-text-white"
-        }
-        rowContainer.innerHTML += `
-        <tr>
-        <td id="heartIco" class="is-vcentered" width="5%"><i heartId="${movie.id}" class="${heartClass}"></i></td>
-        <td class="has-text-white is-vcentered">${movie.title}</td>
-        <td id="deleteTd" class=""><a id="${movie.id}" class="button is-small is-danger is-vcentered">Eliminar</a></td>
-        </tr>
-        `
-    });
+    if(listDataRes === null || listDataRes === undefined || listDataRes) {
+        emptyInfo.innerText = 'Tu lista está vacía'
+    } else {
+        listDataRes.forEach(movie => {
+            let heartClass
+            if (movie.liked === "true") {
+                heartClass = "fas fa-heart has-text-white"
+            } else {
+                heartClass = "far fa-heart has-text-white"
+            }
+            rowContainer.innerHTML += `
+            <tr>
+            <td id="heartIco" class="is-vcentered" width="5%"><i heartId="${movie.id}" class="${heartClass}"></i></td>
+            <td class="has-text-white is-vcentered">${movie.title}</td>
+            <td id="deleteTd" class=""><a id="${movie.id}" class="button is-small is-danger is-vcentered">Eliminar</a></td>
+            </tr>
+            `
+        });
+    }
+    
 })
 
 //deleting funct
