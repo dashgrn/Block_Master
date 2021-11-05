@@ -1,5 +1,5 @@
-
-const PLAYLIST_URL = 'http://localhost:4002/playlist'
+// const PLAYLIST_URL = 'https://j-serv-blockmaster.herokuapp.com/playlist'
+const PLAYLIST_URL = 'http://localhost:4002/playlist' //LOCAL DB
 
 const heartIco = document.getElementById('heartIco')
 const rowTemplate = document.getElementById('rowTemplate')
@@ -9,14 +9,13 @@ const emptyInfo = document.getElementById('emptyInfo')
 const getList = async () => {
     let listDataReq = await fetch(PLAYLIST_URL)
     let listDataRes = await listDataReq.json()
-    console.log(listDataRes)
     return listDataRes
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
     let listDataRes = await getList()
     console.log(listDataRes)
-    if(listDataRes === null || listDataRes === undefined || listDataRes) {
+    if(listDataRes === null || listDataRes === undefined || listDataRes.length === 0) {
         emptyInfo.innerText = 'Tu lista está vacía'
     } else {
         listDataRes.forEach(movie => {
